@@ -1,10 +1,11 @@
 class Team
 
-    attr_reader :teamList, :name, :division, :locationName, :firstYearOfPlay
+    attr_reader :name, :division, :locationName, :firstYearOfPlay
 
     @@all = []
 
     def initialize(teamList)
+        @id = teamList["id"]
         @name = teamList["name"]
         @division = teamList["division"]["name"]
         @locationName = teamList["locationName"]

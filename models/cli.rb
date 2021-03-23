@@ -2,8 +2,11 @@ class CLI
     def initialize
         @prompt = TTY::Prompt.new
         welcome
+        NHL_API.new.response["teams"].each{|team_hash| Team.new(team_hash)}
         # menu
     end
+    
+    # binding.pry
     
     def welcome
         puts "\nWelcome to the NHL team information app.\n\n"

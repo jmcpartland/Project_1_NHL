@@ -2,8 +2,7 @@ class CLI
     def initialize
         @prompt = TTY::Prompt.new
         welcome
-        NHL_API.new.response["teams"].each{|team_hash| Team.new(team_hash)}
-        # menu
+        menu
     end
     
     # binding.pry
@@ -14,22 +13,11 @@ class CLI
       
       
     def menu
-        divisions = ["Discover Central", "Honda West", "MassMutual East", "Scotia North"]
+        divisionList = Team.all.map{|team| team.division}.uniq
   
-        input = @prompt.enum_select("Enter the number next to the division.", [divisions, "Exit"])
-    
-        case input
-        when "Discover Central"
-            puts "Discover Central"
-        when "Honda West"
-            puts "Honda West"
-        when "MassMutual East"
-            puts "MassMutual East"
-        when "Scotia North"
-            puts "Scotia North"
-        when "Exit"
-            puts "Exit"
-        end
+        input = @prompt.enum_select("Enter the number next to the division.", [divisionList, "Exit"])
+        
+        Team.all.select {|team| team.division == input && (puts team.name)}
     end
-  
+
 end

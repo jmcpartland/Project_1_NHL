@@ -2,7 +2,7 @@ class CLI
     def initialize
         @prompt = TTY::Prompt.new
         welcome
-        menu
+        # menu
     end
     
     def welcome

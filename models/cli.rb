@@ -13,11 +13,13 @@ class CLI
       
       
     def menu
-        divisionList = Team.all.map{|team| team.division}.uniq
-  
-        input = @prompt.enum_select("Enter the number next to the division.", [divisionList, "Exit"])
+        input = @prompt.enum_select("Enter the number next to the division.", [NHL_API.divisionList, "Exit"])
+        result = Team.all.select {|team| team.division == input}
+        teams = result.map{|team| team.name}
         
-        Team.all.select {|team| team.division == input && (puts team.name)}
+        input2 = @prompt.enum_select("Enter the number next to the team you want to see more information on.", [teams, "Exit"])
+
     end
+    # binding.pry
 
 end

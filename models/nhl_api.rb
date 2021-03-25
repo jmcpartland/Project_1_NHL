@@ -7,4 +7,8 @@ class NHL_API
         response = Net::HTTP.get(uri)
         @response = JSON.parse(response)
     end
+
+    def self.divisionList
+        Team.all.map{|team| team.division}.uniq
+    end
 end

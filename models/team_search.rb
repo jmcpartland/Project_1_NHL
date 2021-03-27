@@ -1,4 +1,0 @@
-class TeamSearch
-
-    
-end

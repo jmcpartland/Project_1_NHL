@@ -4,22 +4,38 @@ class CLI
         welcome
         menu
     end
-    
-    # binding.pry
-    
+
     def welcome
-        puts "\nWelcome to the NHL team information app.\n\n"
+        puts "\nWelcome to the NHL team information CLI app.\n"
     end
-      
-      
+
     def menu
-        input = @prompt.enum_select("Enter the number next to the division.", [NHL_API.divisionList, "Exit"])
-        result = Team.all.select {|team| team.division == input}
-        teams = result.map{|team| team.name}
+        input = @prompt.enum_select("\nEnter the number next to the division to see a list of teams.", 
+            Team.divisionList, "Exit", per_page: 12)
         
-        input2 = @prompt.enum_select("Enter the number next to the team you want to see more information on.", [teams, "Exit"])
-
+        if Team.divisionList.include?(input)
+            @teams = Team.teamListByDivision(input)
+            team_menu
+        else
+            exit_app
+        end
     end
-    # binding.pry
 
+    def team_menu
+        input2 = @prompt.enum_select("\nEnter the number next to the Team for more information.", 
+            @teams, "Return to main menu", "Exit", per_page: 12)
+
+        if @teams.include?(input2)
+            Team.printTeamDetails(input2)
+        elsif input2 == "Return to main menu"
+            menu
+        else input2 == "Exit"
+            exit_app
+        end
+    end
+
+
+    def exit_app
+        puts "\nThank you for using the NHL team information CLI app."
+    end
 end

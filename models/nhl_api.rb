@@ -8,7 +8,12 @@ class NHL_API
         @response = JSON.parse(response)
     end
 
-    def self.divisionList
-        Team.all.map{|team| team.division}.uniq
-    end
+    # def self.divisionList
+    #     Team.all.map{|team| team.division}.uniq
+    # end
+
+    # def self.teamListByDivision(divisionResult)
+    #     result = Team.all.select {|team| team.division == divisionResult}
+    #     teams = result.map{|team| team.name}
+    # end
 end

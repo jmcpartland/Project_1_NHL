@@ -16,7 +16,7 @@ class CLI
         if Team.divisionList.include?(input)
             @teams = Team.teamListByDivision(input)
             team_menu
-        else
+        else input == "Exit"
             exit_app
         end
     end
@@ -27,6 +27,7 @@ class CLI
 
         if @teams.include?(input2)
             Team.printTeamDetails(input2)
+            try_again_menu
         elsif input2 == "Return to main menu"
             menu
         else input2 == "Exit"
@@ -34,6 +35,15 @@ class CLI
         end
     end
 
+    def try_again_menu
+        input3 = @prompt.enum_select("\nWould you like to see a different team?", 
+            "Yes", "No", per_page: 12)
+        if input3 == "Yes"
+            menu
+        else input3 == "No"
+            exit_app
+        end
+    end
 
     def exit_app
         puts "\nThank you for using the NHL team information CLI app."
